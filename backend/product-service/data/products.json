@@ -1,0 +1,117 @@
+[{
+    "name": "Muruku",
+    "price": 5,
+    "description": "Murukku is a savory, crunchy snack from South India, known for its twisted or spiral shape.",
+    "ratings": 4.5,
+    "images": [
+      {
+        "image": "/images/products/muruku.jpg" 
+      }
+         ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+  {
+    "name": "Thattai",
+    "price": 5,
+    "description": "Thattai is a crispy, deep-fried South Indian snack, primarily made from rice flour and commonly prepared during festivals like Pongal and Deepavali.",
+    "ratings": 3.5,
+    "images": [
+      {
+        "image": "/images/products/thattai.jpg"
+      }
+    ],
+   "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+  {
+    "name": "Adhirasam",
+    "price": 6,
+    "description": " Adhirasam is a traditional South Indian sweet, especially popular in Tamil Nadu, made from rice flour and jaggery. ",
+    "ratings": 2,
+    "images": [
+      {
+        "image": "/images/products/Athirasam.jpg"
+      }
+    ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+  {
+    "name": "Rava laddu",
+    "price": 10,
+    "description": "Rava laddu is a South Indian Sweet made with semolina, sugar, ghee, cashews and raisins. Rava is the Indian term for semolina & laddu are sweet balls.",
+    "ratings": 4,
+    "images": [
+      {
+        "image": "/images/products/rava.jpg"
+      }
+    ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+  
+   {
+    "name": "Somasu",
+    "price": 10,
+    "description": "Somasu, also known as Somas, Karchikai, Somasi, Karanji, or Kajjikayalu, is a traditional Indian sweet snack, often made during festivals like Diwali.",
+    "ratings": 3,
+    "images": [
+      {
+        "image": "/images/products/Somasu.png"
+      }
+    ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+  
+   {
+    "name": "Porulvilangi Uruandai",
+    "price": 10,
+    "description": " Poruvilangi or Porulvilangi Uruandai is a healthy and nutritious sweet ball. The name Porulvilangai literally means that the ingredients are a mystery.",
+    "ratings": 5,
+    "images": [
+      {
+        "image": "/images/products/Porulvilangai urundai.jpg"
+      }
+    ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+
+  {
+    "name": " Cone Porulvilangi Uruandai",
+    "price": 200,
+    "description": " Poruvilangi or Porulvilangi Uruandai is a healthy and nutritious sweet ball. The name Porulvilangai literally means that the ingredients are a mystery.",
+    "ratings": 5,
+    "images": [
+      {
+        "image": "/images/products/cone shape porivilangai urundai.jpg"
+      }
+    ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  },
+ 
+  {
+    "name": "Omapodi",
+    "price": 50,
+    "description": "Omapodi is a delicious and crispy south Indian snack of sev, laced with the delicate aroma and flavor of ajwain or carom seeds (known as omam in tamil language).",
+    "ratings": 5,
+    "images": [
+      {
+        "image": "/images/products/omapodi.jpg"
+      }
+    ],
+    "category": "Snacks",
+    "seller": "SelviSankar",
+    "stock": "Advance Booking"
+  }
+]
