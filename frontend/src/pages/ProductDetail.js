@@ -4,37 +4,61 @@ import { toast } from "react-toastify";
 
 export default function ProductDetail({ cartItems, setCartItems }) {
   const [product, setProduct] = useState(null);
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState("1"); 
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL + '/product/' + id)
+    fetch(process.env.REACT_APP_API_URL + "/product/" + id)
       .then((res) => res.json())
-      .then((res) => setProduct(res.product));
+      .then((res) => setProduct(res.product))
+      .catch((err) => {
+        console.error("Failed to fetch product:", err);
+        toast.error("Failed to load product details");
+      });
   }, [id]);
 
   function addToCart() {
+    const quantity = parseInt(qty);
+
+    if (!quantity || quantity < 1) {
+      toast.warn("Quantity must be at least 1");
+      return;
+    }
+
     const itemExist = cartItems.find((item) => item.product._id === product._id);
     if (!itemExist) {
-      const newItem = { product, qty };
+      const newItem = { product, qty: quantity };
       setCartItems((state) => [...state, newItem]);
-      toast("Cart Item Added Successfully!");
+      toast.success("Cart Item Added Successfully!");
+    } else {
+      toast.info("Item already in cart");
     }
   }
 
   function increaseQty() {
-    setQty((state) => state + 1);
+    const value = parseInt(qty) || 1;
+    setQty(String(value + 1));
   }
 
   function decreaseQty() {
-    if (qty > 0) {
-      setQty((state) => state - 1);
+    const value = parseInt(qty) || 1;
+    if (value > 1) {
+      setQty(String(value - 1));
     }
   }
 
   function handleQtyChange(e) {
-    const value = parseInt(e.target.value);
-    if (!isNaN(value) && value >= 0) {
+    const value = e.target.value;
+
+    // Allow empty for typing
+    if (value === "") {
+      setQty("");
+      return;
+    }
+
+    // Allow only numbers > 0
+    const num = parseInt(value);
+    if (!isNaN(num) && num > 0) {
       setQty(value);
     }
   }
@@ -45,7 +69,12 @@ export default function ProductDetail({ cartItems, setCartItems }) {
     <div className="container container-fluid">
       <div className="row f-flex justify-content-around">
         <div className="col-12 col-lg-5 img-fluid" id="product_image">
-          <img src={product.images[0].image} height="500" width="500" alt={product.name} />
+          <img
+            src={product.images?.[0]?.image || "/default-product.png"}
+            height="500"
+            width="500"
+            alt={product.name}
+          />
         </div>
 
         <div className="col-12 col-lg-5 mt-5">
@@ -64,6 +93,7 @@ export default function ProductDetail({ cartItems, setCartItems }) {
           <hr />
 
           <p id="product_price">₹{product.price}</p>
+
           <div className="stockCounter d-inline">
             <span className="btn btn-danger minus" onClick={decreaseQty}>
               -
@@ -74,7 +104,12 @@ export default function ProductDetail({ cartItems, setCartItems }) {
               className="form-control count d-inline"
               value={qty}
               onChange={handleQtyChange}
-              min="0"
+              min="1"
+              onKeyDown={(e) => {
+                if (["e", "E", "+", "-"].includes(e.key)) {
+                  e.preventDefault(); 
+                }
+              }}
             />
 
             <span className="btn btn-primary plus" onClick={increaseQty}>
@@ -93,7 +128,9 @@ export default function ProductDetail({ cartItems, setCartItems }) {
 
           <hr />
 
-          <p>Status: <span id="stock_status">Pre Booking</span></p>
+          <p>
+            Status: <span id="stock_status">Pre Booking</span>
+          </p>
 
           <hr />
 
@@ -102,7 +139,7 @@ export default function ProductDetail({ cartItems, setCartItems }) {
 
           <hr />
 
-          <p id="product_seller mb-3">
+          <p id="product_seller" className="mb-3">
             Sold by: <strong>{product.seller}</strong>
           </p>
 
@@ -112,3 +149,4 @@ export default function ProductDetail({ cartItems, setCartItems }) {
     </div>
   );
 }
+
