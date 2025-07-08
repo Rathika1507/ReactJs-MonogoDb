@@ -8,10 +8,15 @@ import ProductDetail from './pages/ProductDetail';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Cart from './pages/Cart';
+import { AuthProvider, useAuth } from './AuthContext'; // 👈 Import Auth context
+import PrivateRoute from './components/PrivateRoute';   // 👈 Import PrivateRoute
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+// Layout component with routing
 function Layout({ cartItems, setCartItems }) {
   const location = useLocation();
-  const hideHeaderPaths = ['/']; // Add '/register' here if separate path
+  const hideHeaderPaths = ['/']; // Hide header on login page
   const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
   return (
@@ -20,14 +25,31 @@ function Layout({ cartItems, setCartItems }) {
       {!shouldHideHeader && <Header cartItems={cartItems} />}
       <Routes>
         <Route path="/" element={<Auth />} />
-        <Route path="/Home" element={<Home />} />
+
+        {/* 🔐 Protected Routes */}
+        <Route
+          path="/Home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/Product/:id"
-          element={<ProductDetail cartItems={cartItems} setCartItems={setCartItems} />}
+          element={
+            <PrivateRoute>
+              <ProductDetail cartItems={cartItems} setCartItems={setCartItems} />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/cart"
-          element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
+          element={
+            <PrivateRoute>
+              <Cart cartItems={cartItems} setCartItems={setCartItems} />
+            </PrivateRoute>
+          }
         />
       </Routes>
       <Footer />
@@ -40,9 +62,11 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
-        <Layout cartItems={cartItems} setCartItems={setCartItems} />
-      </Router>
+      <AuthProvider> {/* 👈 Wrap everything in AuthProvider */}
+        <Router>
+          <Layout cartItems={cartItems} setCartItems={setCartItems} />
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

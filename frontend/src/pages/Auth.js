@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useAuth } from '../AuthContext'; // 👈 Import AuthContext
 
 axios.defaults.withCredentials = true;
 
@@ -9,6 +10,7 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
 
+  const { login } = useAuth(); // 👈 Use the login function from context
   const navigate = useNavigate();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,11 +21,10 @@ const Login = () => {
       const res = await axios.post(url, form);
       alert(res.data.message);
 
-      // Redirect after successful login
+      // 👇 Call context login only after successful login
       if (isLogin && res.data.user) {
-        // Optionally store user session
-        localStorage.setItem('user', JSON.stringify(res.data.user));
-        navigate('/Home');
+        login(res.data.user); // Set user globally
+        navigate('/Home');    // Redirect to Home
       }
     } catch (err) {
       alert(err.response?.data?.message || 'Something went wrong');
