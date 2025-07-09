@@ -17,7 +17,12 @@ export default function Header({ cartItems }) {
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
           <Link to="/Home">
-            <img width="150px" src="/images/products/logo.jpg" alt=" Cart Logo" />
+            <img
+              width="150px"
+              style={{ marginLeft: "40px", marginTop: "10px", marginRight: "150px", display: "block" }}
+              src="/images/products/logo.jpg"
+              alt=" Cart Logo"
+            />
           </Link>
         </div>
       </div>
@@ -26,22 +31,23 @@ export default function Header({ cartItems }) {
         <Search />
       </div>
 
-      <div className="col-12 col-md-3 mt-4 mt-md-0 text-center"> 
+      <div className="col-12 col-md-3 mt-4 mt-md-0 text-center" > 
         <ButtonToolbar aria-label="Toolbar with button groups">
           <ButtonGroup className="me-2" aria-label="First group">
             <Link to="/cart">
-              <Button variant="primary">Cart ({cartItems.length})</Button>
+                <Button variant="primary"> 🛒Cart ({cartItems.length})</Button>
             </Link>
           </ButtonGroup>
       <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      <Dropdown.Toggle variant="success" id="dropdown-basic" >
         My Profile
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">My Order</Dropdown.Item>
-        <Dropdown.Item href="/">Logout</Dropdown.Item>
-               </Dropdown.Menu>
+        <Dropdown.Item as={Link} to="/orders">🛍️My Order</Dropdown.Item>
+        <Dropdown.Item onClick={handleLogout}>🚪Logout</Dropdown.Item>
+        
+      </Dropdown.Menu>
     </Dropdown>
           </ButtonToolbar>
       </div>

@@ -1,9 +1,11 @@
 import { Fragment } from "react/jsx-runtime";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../AuthContext";
 import { toast } from "react-toastify";
 
 export default function Cart({ cartItems, setCartItems }) {
+  const { user } = useAuth();
   const [complete, setComplete] = useState(false);
 
   function increaseQty(item) {
@@ -32,10 +34,14 @@ export default function Cart({ cartItems, setCartItems }) {
   }
 
   function placeOrderHandler() {
+    if (!user || !user.email) {
+      toast.error("User not logged in");
+      return;
+    }
     fetch(process.env.REACT_APP_API_URL + '/order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(cartItems),
+      body: JSON.stringify({ cartItems, email: user.email }),
     }).then(() => {
       setCartItems([]);
       setComplete(true);

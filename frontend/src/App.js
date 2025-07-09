@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ProductDetail from './pages/ProductDetail';
+import OrderHistory from './pages/OrderHistory';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Cart from './pages/Cart';
@@ -48,6 +49,14 @@ function Layout({ cartItems, setCartItems }) {
           element={
             <PrivateRoute>
               <Cart cartItems={cartItems} setCartItems={setCartItems} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <PrivateRoute>
+              <OrderHistory />
             </PrivateRoute>
           }
         />

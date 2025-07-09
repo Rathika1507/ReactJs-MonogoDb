@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
     cartItems: Array,
     amount: String,
     status: String,
-    createdAt: Date
+    createdAt: Date,
+    email: String
 })
 
 
