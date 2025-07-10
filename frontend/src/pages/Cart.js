@@ -45,8 +45,26 @@ export default function Cart({ cartItems, setCartItems }) {
     }).then(() => {
       setCartItems([]);
       setComplete(true);
-      toast.success("Order Success!");
+      //toast.success("Order Success!");
     });
+
+    // Prepare order details for email
+    /*const orderDetails = cartItems.map(item => `${item.product.name} x ${item.qty} (₹${item.product.price} each)`).join("\n");
+    const emailText = `Thank you for ordering!\n\nYour order details:\n${orderDetails}\n\nTotal: ₹${totalPrice}`;
+    const today = new Date().toLocaleDateString();
+
+    fetch("http://localhost:4000/send-email", {
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to: user.email, subject: `Thank you for ordering - ${today}`, text: emailText })
+    }).then((res) => {
+      if (res.ok) {
+        toast.success("Email sent successfully!");
+      } else {
+        toast.error("Failed to send email");
+      }
+    });*/
+    
   }
 
   // Totals
