@@ -35,7 +35,7 @@ export default function OrderHistory() {
                 <th>Items</th>
               </tr>
             </thead>
-            <tbody className="table-danger">
+            <tbody className="table-info">
 
               {orders.map((order) => (
                 <tr key={order._id}>
