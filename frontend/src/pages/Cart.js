@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../AuthContext";
 import { toast } from "react-toastify";
+import 'font-awesome/css/font-awesome.min.css';
+
 
 export default function Cart({ cartItems, setCartItems }) {
   const { user } = useAuth();
@@ -104,7 +106,9 @@ export default function Cart({ cartItems, setCartItems }) {
 
                     <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                       <div className="stockCounter d-inline">
-                        <span className="btn btn-danger minus" onClick={() => decreaseQty(item)}>-</span>
+                        <span className="btn btn-danger minus" 
+                        style={{ display: 'inline-block', fontSize: '20px' }}
+                         onClick={() => decreaseQty(item)}>-</span>
                         <input
                           type="number"
                           className="form-control count d-inline"
@@ -119,6 +123,7 @@ export default function Cart({ cartItems, setCartItems }) {
                       <i
                         id="delete_cart_item"
                         className="fa fa-trash btn btn-danger"
+                        style={{ display: 'inline-block', fontSize: '30px' }}
                         onClick={() => removeFromCart(item)}
                       ></i>
                     </div>

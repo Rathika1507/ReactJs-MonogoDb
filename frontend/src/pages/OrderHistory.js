@@ -40,7 +40,24 @@ export default function OrderHistory() {
               {orders.map((order) => (
                 <tr key={order._id}>
                   <td className="text-primary">{order._id}</td>
-                  <td className="text-primary">{order.createdAt ? new Date(order.createdAt).toLocaleString() : "-"}</td>
+                  <td className="text-primary">        {order.createdAt && !isNaN(Date.parse(order.createdAt))
+          ? (() => {
+              const date = new Date(Date.parse(order.createdAt));
+              const day = date.getUTCDate();
+              const daySuffix =
+                day === 1 || day === 21 || day === 31 ? 'st'
+                : day === 2 || day === 22 ? 'nd'
+                : day === 3 || day === 23 ? 'rd'
+                : 'th';
+              const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+              ];
+              const month = monthNames[date.getUTCMonth()];
+              const year = date.getUTCFullYear();
+              return `${day}${daySuffix} ${month} ${year}`;
+            })()
+          : "-"}</td>
                   <td className="text-primary">{order.status}</td>
                   <td className="text-primary">₹{order.amount}</td>
                   <td className="text-primary">
