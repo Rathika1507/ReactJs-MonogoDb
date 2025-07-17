@@ -23,7 +23,7 @@ export default function Header({ cartItems }) {
             <img
               width="90px"
               style={{ marginLeft: "40px", marginTop: "10px", marginRight: "150px", display: "block" }}
-              src="/images/products/logo.jpg"
+              src="/images/products/Logo-updated.PNG"
               alt=" Cart Logo"
             />
           </Link>
@@ -34,7 +34,7 @@ export default function Header({ cartItems }) {
         <Search />
       </div>
       
-      <div className="col-12 col-md-3 mt-4 mt-md-0 text-center d-flex justify-content-center" >
+      <div className="col-12 col-md-3 mt-4 mt-md-0 text-center d-flex justify-content-start" >
         <ButtonToolbar aria-label="Toolbar with button groups">
           <ButtonGroup className="me-2" aria-label="First group">
             <Link to="/cart" style={{ textDecoration: "none" }}>
@@ -82,7 +82,7 @@ export default function Header({ cartItems }) {
         onMouseLeave={() => setShowProfileMenu(false)}
       >
         <Dropdown.Toggle
-          variant="outline-success pe-3"
+          variant="outline-success pe-5"
           id="dropdown-basic"
           style={{
             borderRadius: "16px",
