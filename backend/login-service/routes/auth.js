@@ -6,47 +6,62 @@ const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, phone, email, password, confirmPassword } = req.body;
 
-  // Validation for password match
+  if (!name || !email || !password || !confirmPassword) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
   if (password !== confirmPassword) {
     return res.status(400).json({ message: 'Passwords do not match' });
   }
 
-  const existing = await User.findOne({ email });
-  if (existing) return res.status(400).json({ message: 'Email already registered' });
+  try {
+    const existing = await User.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'Email already registered' });
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ name, email, password: hashedPassword });
-  await user.save();
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ name,phone, email, password: hashedPassword });
+    await user.save();
 
-  res.json({ message: 'Registration successful! click Sign In' });
+    res.json({ message: 'Registration successful! Click Sign In' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error during registration' });
+  }
 });
 
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(400).json({ message: 'User not found' });
+  if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ message: 'Invalid password' });
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'User not found' });
 
-  // Store session
-  req.session.user = {
-    id: user._id,
-    email: user.email,
-    name: user.name,
-  };
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid password' });
 
-  res.json({ message: 'Login successful', user: req.session.user });
+    req.session.user = {
+      id: user._id,
+      email: user.email,
+      phone: user.phone,
+      name: user.name,
+    };
+
+    res.json({ message: 'Login successful', user: req.session.user });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error during login' });
+  }
 });
 
 // Logout
 router.post('/logout', (req, res) => {
-  req.session.destroy();
-  res.json({ message: 'Logged out successfully' });
+  req.session.destroy(err => {
+    if (err) return res.status(500).json({ message: 'Logout failed' });
+    res.json({ message: 'Logged out successfully' });
+  });
 });
 
 module.exports = router;

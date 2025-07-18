@@ -1,55 +1,79 @@
 /* Login.css */
 .login-wrapper {
-  max-width: 400px;
+  max-width: 450px;
   margin: 80px auto;
-  padding: 30px;
-  background: #fff8e1;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  background: linear-gradient(135deg, #fff8e1, #ffe0b2);
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   border: 2px solid #f57c00;
+  transition: transform 0.3s ease-in-out;
 }
+
+.login-wrapper:hover {
+  transform: translateY(-5px);
+}
+
 .login-wrapper h2 {
   text-align: center;
   color: #d84315;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
 .login-wrapper input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1.5px solid #ccc;
+  border-radius: 12px;
   font-size: 17px;
   background: #fff;
   color: #232f3e;
+  transition: border 0.3s, box-shadow 0.3s;
 }
+
+.login-wrapper input:focus {
+  border-color: #f57c00;
+  outline: none;
+  box-shadow: 0 0 8px rgba(245, 124, 0, 0.3);
+}
+
 .login-wrapper button {
   width: 100%;
-  padding: 12px;
-  background-color: #f57c00;
+  padding: 14px;
+  background: linear-gradient(135deg, #f57c00, #ff9800);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
+  border-radius: 12px;
   font-size: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  letter-spacing: 1px;
 }
+
 .login-wrapper button:hover {
-  background-color: #e65100;
-  transform: scale(1.02);
+  background: linear-gradient(135deg, #e65100, #f57c00);
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
 .login-wrapper .toggle {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
   color: #d84315;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.login-wrapper .toggle:hover {
+  color: #e65100;
+  text-decoration: underline;
 }
