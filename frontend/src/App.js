@@ -1,3 +1,4 @@
+// App.jsx
 import './App.css';
 import Header from './components/Header';
 import Auth from './pages/Auth';
@@ -9,58 +10,39 @@ import OrderHistory from './pages/OrderHistory';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Cart from './pages/Cart';
-import { AuthProvider, useAuth } from './AuthContext'; // 👈 Import Auth context
-import PrivateRoute from './components/PrivateRoute';   // 👈 Import PrivateRoute
+import { AuthProvider } from './AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-// Layout component with routing
 function Layout({ cartItems, setCartItems }) {
   const location = useLocation();
-  const hideHeaderPaths = ['/']; // Hide header on login page
+  
+  const hideHeaderPaths = ['/Auth'];
   const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
   return (
     <>
       <ToastContainer theme='dark' position='bottom-center' />
-      {!shouldHideHeader && <Header cartItems={cartItems} />}
-      <Routes>
-        <Route path="/" element={<Auth />} />
 
-        {/* 🔐 Protected Routes */}
-        <Route
-          path="/Home"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
+      {!shouldHideHeader && <Header cartItems={cartItems} />}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/Auth" element={<Auth />} />
         <Route
           path="/Product/:id"
-          element={
-            <PrivateRoute>
-              <ProductDetail cartItems={cartItems} setCartItems={setCartItems} />
-            </PrivateRoute>
-          }
+          element={<ProductDetail cartItems={cartItems} setCartItems={setCartItems} />}
         />
+        <Route path="/search" element={<Home />} />
         <Route
           path="/cart"
-          element={
-            <PrivateRoute>
-              <Cart cartItems={cartItems} setCartItems={setCartItems} />
-            </PrivateRoute>
-          }
+          element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
         />
-        <Route
-          path="/orders"
-          element={
-            <PrivateRoute>
-              <OrderHistory />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/orders" element={<OrderHistory />} />
       </Routes>
+
       <Footer />
     </>
   );
@@ -70,13 +52,11 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   return (
-    <div className="App">
-      <AuthProvider> {/* 👈 Wrap everything in AuthProvider */}
-        <Router>
-          <Layout cartItems={cartItems} setCartItems={setCartItems} />
-        </Router>
-      </AuthProvider>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Layout cartItems={cartItems} setCartItems={setCartItems} />
+      </Router>
+    </AuthProvider>
   );
 }
 

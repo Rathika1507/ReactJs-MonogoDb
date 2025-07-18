@@ -1,6 +1,6 @@
 const orderModel = require('../models/orderModel')
 
-exports.createOrder = async(req,res,next)=>{
+exports.createOrder = async(req,res,)=>{
     const { cartItems, email } = req.body;
     const amount = Number(cartItems.reduce((acc, item)=>(acc+item.product.price * item.qty),0)).toFixed(2);
     const status =  'pending';
@@ -9,7 +9,7 @@ exports.createOrder = async(req,res,next)=>{
     res.json({ success:true, order })
 }
 
-exports.getOrders = async (req, res, next) => {
+exports.getOrders = async (req, res,) => {
     try {
         const { email } = req.query;
         if (!email) {

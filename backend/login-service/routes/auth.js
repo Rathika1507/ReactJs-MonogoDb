@@ -8,6 +8,11 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
 
+  // Validation for password match
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
+  }
+
   const existing = await User.findOne({ email });
   if (existing) return res.status(400).json({ message: 'Email already registered' });
 
@@ -15,7 +20,7 @@ router.post('/register', async (req, res) => {
   const user = new User({ name, email, password: hashedPassword });
   await user.save();
 
-  res.json({ message: 'Registration successful' });
+  res.json({ message: 'Registration successful! click Sign In' });
 });
 
 // Login

@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../AuthContext";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 
 
 export default function Cart({ cartItems, setCartItems }) {
   const { user } = useAuth();
   const [complete, setComplete] = useState(false);
+  const navigate = useNavigate();
 
   function increaseQty(item) {
     const updatedItems = cartItems.map((i) => {
@@ -38,6 +40,7 @@ export default function Cart({ cartItems, setCartItems }) {
   function placeOrderHandler() {
     if (!user || !user.email) {
       toast.error("User not logged in");
+       navigate('/auth');
       return;
     }
     fetch(process.env.REACT_APP_API_URL + '/order', {
@@ -122,7 +125,7 @@ export default function Cart({ cartItems, setCartItems }) {
                     <div className="col-4 col-lg-1 mt-4 mt-lg-0">
                       <i
                         id="delete_cart_item"
-                        className="fa fa-trash btn btn-danger"
+                        className="fa fa-trash "
                         style={{ display: 'inline-block', fontSize: '30px' }}
                         onClick={() => removeFromCart(item)}
                       ></i>
