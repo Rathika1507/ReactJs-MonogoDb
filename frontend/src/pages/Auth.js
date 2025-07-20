@@ -40,7 +40,7 @@ const Login = () => {
       }
     }
 
-    const url = `http://localhost:5000/api/auth/${isLogin ? 'login' : 'register'}`;
+    const url = `${process.env.REACT_APP_LOGIN_API_URL}/api/auth/${isLogin ? 'login' : 'register'}`;
 
     try {
       const res = await axios.post(url, form);
