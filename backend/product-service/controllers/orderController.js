@@ -21,3 +21,37 @@ exports.getOrders = async (req, res,) => {
         res.status(500).json({ success: false, message: 'Failed to fetch orders' });
     }
 }
+
+exports.getAllOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find().sort({ createdAt: -1 });
+        res.json({ success: true, orders });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to fetch orders' });
+    }
+}
+
+exports.updateOrderStatus = async (req, res) => {
+  const { status } = req.body;
+  const allowedStatuses = ['pending', 'dispatched', 'delivered'];
+
+  if (!allowedStatuses.includes(status)) {
+    return res.status(400).json({ success: false, message: 'Invalid status value' });
+  }
+
+  try {
+    const updatedOrder = await orderModel.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    res.json({ success: true, order: updatedOrder });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
