@@ -128,3 +128,50 @@ table {
     gap: 8px;
   }
 }
+
+.burger-menu {
+  cursor: pointer;
+  width: 30px;
+  margin-bottom: 10px;
+}
+
+.bar {
+  height: 4px;
+  background-color: black;
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+
+.side-menu {
+  background-color: #f1f1f1;
+  padding: 10px;
+  width: 200px;
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.side-menu ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.side-menu li {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.nested-menu {
+  padding-left: 15px;
+  list-style-type: circle;
+}
+
+.nested-menu li {
+  cursor: pointer;
+  margin: 4px 0;
+  color: #007bff;
+}
+
